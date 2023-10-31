@@ -1,0 +1,402 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <link rel="shortcut icon" href="{% static 'intel_app/img/intel.ico' %}"/>
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'intel_app/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'intel_app/css/quill.snow.css' %}" rel="stylesheet">
+    <link href="{% static 'intel_app/css/style.css' %}" rel="stylesheet" />
+    <script src="{% static 'intel_app/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'intel_app/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'intel_app/js/jquery.min.js' %}"></script>
+    <script src="{% static 'intel_app/js/quill.js' %}"></script>
+
+    <style>
+        .btn {
+          transition: all 0.4s;
+        }
+
+        .btn span {
+          display: inline-block;
+          position: relative;
+          transition: 0.4s;
+        }
+
+        .btn span:after {
+          content: "\00bb";
+          position: absolute;
+          opacity: 0;
+          top: 0;
+          right: -1.375rem;
+          transition: 0.4s;
+        }
+
+        .btn:hover span {
+          padding-right: 2rem;
+        }
+
+        .btn:hover span:after {
+          opacity: 1;
+          right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Example Code -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <span>Intel</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-md-auto gap-2">
+                <li class="nav-item rounded">
+                    <a class="nav-link ho" href="{% url 'home' %}">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown rounded">
+                    <a class="nav-link ho dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                        <span>{{request.user.username}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<main>
+    <!-- Service 4 - Bootstrap Brain Component -->
+    <section>
+        <div class="container"><!--style="max-width:100%;"-->
+            <div class="alert alert-light alert-dismissible fade show" role="alert">
+                <strong>Welcome!</strong> A simple primary alert—check it out!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <br>
+        <div class="container"><!--style="max-width:100%;"-->
+            <form class="form-inline" style="width:250px;float:right;">
+                <input class="form-control mr-sm-2" id="filter" type="search" placeholder="Search" aria-label="Search"
+                       autocomplete="off">
+            </form>
+            <h4>Application Gallery</h4>
+            <br>
+
+            <div id="mycard" class="row py-2">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mx-auto py-2">
+                    <div class="card2 shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            <i class="fa-solid fa-key fa-2xl text-warning mb-4"></i><br><br>
+                            <h5 class="mb-4">Key Message</h5>
+                            <p class="mb-4 text-secondary">Vestibulum bibendum, lorem a blandit lacinia, nisi velit
+                                posuere nisl, vel placerat magna mauris mollis maximus est.</p>
+                            <a class="btn btn-md btn-warning button arrow" data-bs-toggle="modal" data-bs-target="#keymessageModal" role="button">
+                                <span>Update</span>
+                            </a>
+                            <a class="btn btn-md btn-warning button arrow" href="{% url 'key_message' %}" role="button">
+                                <span>History</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mx-auto py-2">
+                    <div class="card2 shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            <i class="fa-solid fa-calendar-days fa-2xl text-secondary mb-4"></i><br><br>
+                            <h5 class="mb-4">Schedule</h5>
+                            <p class="mb-4 text-secondary">Vestibulum bibendum, lorem a blandit lacinia, nisi velit
+                                posuere nisl, vel placerat magna mauris mollis maximus est.</p>
+                            <a class="btn btn-md btn-secondary button arrow" href="#" role="button">
+                                <span>Add</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mx-auto py-2">
+                    <div class="card2 shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            <i class="fa-solid fa-file fa-2xl text-info mb-4"></i><br><br>
+                            <h5 class="mb-4">Risks</h5>
+                            <p class="mb-4 text-secondary">Vestibulum bibendum, lorem a blandit lacinia, nisi velit
+                                posuere nisl, vel placerat magna mauris mollis maximus est.</p>
+                            <a class="btn btn-md btn-info button arrow" data-bs-toggle="modal" data-bs-target="#riskModal" role="button">
+                                <span>Update</span>
+                            </a>
+                            <a class="btn btn-md btn-info button arrow" href="{% url 'risk' %}" role="button">
+                                <span>History</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mx-auto py-2">
+                    <div class="card2 shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            <i class="fa-solid fa-plus fa-2xl text-danger mb-4"></i><br><br>
+                            <h5 class="mb-4">Key Program Metrics</h5>
+                            <p class="mb-4 text-secondary">Vestibulum bibendum, lorem a blandit lacinia, nisi velit
+                                posuere nisl, vel placerat magna mauris mollis maximus est.</p>
+                            <a class="btn btn-md btn-danger button arrow" href="{% url 'key_program' %}" role="button">
+                                <span>Add</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mx-auto py-2">
+                    <div class="card2 shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            <i class="fa-solid fa-link fa-2xl text-success mb-4"></i><br><br>
+                            <h5 class="mb-4">Links</h5>
+                            <p class="mb-4 text-secondary">Vestibulum bibendum, lorem a blandiht lacinia, nisi velit
+                                posuere nisl, vel placerat magna mauris mollis maximus est.</p>
+                            <a class="btn btn-md btn-success button arrow" href="#" role="button">
+                                <span>Add</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mx-auto py-2">
+                    <div class="card2 shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            <i class="fa-solid fa-box-open fa-2xl text-primary mb-4"></i><br><br>
+                            <h5 class="mb-4">BBox</h5>
+                            <p class="mb-4 text-secondary">Vestibulum bibendum, lorem a blandit lacinia, nisi velit
+                                posuere nisl, vel placerat magna mauris mollis maximus est.</p>
+                            <a class="btn btn-md btn-primary button arrow" href="#" role="button">
+                                <span>Add</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mx-auto py-2">
+                    <div class="card2 shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            <i class="fa-solid fa-circle-info fa-2xl text-dark mb-4"></i><br><br>
+                            <h5 class="mb-4">Details</h5>
+                            <p class="mb-4 text-secondary">Vestibulum bibendum, lorem a blandit lacinia, nisi velit
+                                posuere nisl, vel placerat magna mauris mollis maximus est.</p>
+                            <a class="btn btn-md btn-dark button arrow" href="#" role="button">
+                                <span>Add</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Keymessage -->
+<div class="modal fade" id="keymessageModal" tabindex="-1" aria-labelledby="keymessageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="keymessageModalLabel">Key Message</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Create the editor container -->
+                <form method="post" id="myForm" autocomplete="off" action="{% url 'key_message' %}" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+                    <!--<input type="text" value="" />-->
+                    <label class="form-label">Select Project: </label>
+                    <select class="form-select" name="project" id='project' required="required">
+                        <option value="" disabled="disabled" selected="selected">Projects</option>
+                        {% if key_message_data %}
+                        <option value="{{ key_mess_data.project }}">{{ key_mess_data.project }}</option>
+                        {% else %}
+                        {% for i in project %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                    <br>
+                    <label class="form-label">Key Message: </label>
+                    <div id="editor" style="height: 275px;">{{ key_mess_data.message|safe }}</div>
+                    <input type="hidden" name="hiddenInput" id="hiddenInput">
+                    <div id="counter">Limited to 375 characters</div>
+                    <p>{{error}}</p>
+                    <button type="submit" id="btn_keymessage" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Risks -->
+<div class="modal fade" id="riskModal" tabindex="-1" aria-labelledby="riskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="riskModalLabel">Risks</h6>&nbsp;
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Create the editor container -->
+                <form method="post" id="risk_form" action="{% url 'risk' %}" autocomplete="off" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="problem_statement">Name</label>
+                                <textarea class="form-control" id="problem_statement" name="problem_statement"
+                                          placeholder="Enter Problem Statement" cols="3" maxlength="250"
+                                          required="required"></textarea>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Select Project</label>
+                                <select class="form-select" name="project" id='risk_project' required="required">
+                                    <option value="" disabled="disabled" selected="selected">Projects</option>
+                                    {% for i in project %}
+                                    <option value="{{i}}">{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" name="status" id='status' required="required">
+                                    <option value="" disabled="disabled" selected="selected">Select Status</option>
+                                    <option value="R">R</option>
+                                    <option value="G">G</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="owner">Owner</label>
+                                <input class="form-control" id="owner" name="owner" type="text"
+                                       placeholder="Enter Owner" required="required"/>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="message">Message</label>
+                                <textarea class="form-control" id="message" name="message" placeholder="Enter Comments"
+                                          cols="3" maxlength="250" required="required"></textarea>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="eta">ETA</label>
+                                <input class="form-control" id="eta" name="eta" type="date" placeholder="created_at"
+                                       required="required"/>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="risk">Risk Intiated</label>
+                                <input class="form-control" id="risk" name="risk" type="date" placeholder="Enter Risk"
+                                       required="required"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="severity">Severity</label>
+                                <select class="form-select" name="severity" id='severity' required="required">
+                                    <option value="" disabled="disabled" selected="selected">Select Severity</option>
+                                    <option value="Mgt">Mgt</option>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="impact">Impact</label>
+                                <select class="form-select" name="impact" id='impact' required="required">
+                                    <option value="" disabled="disabled" selected="selected">Select Impact</option>
+                                    <option value="PPA">PPA</option>
+                                    <option value="Functionality">Functionality</option>
+                                    <option value="Quality">Quality</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <p>{{error}}</p>
+                    <button type="submit" id="btn_risk" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<script>
+    $("#filter").on("keyup", function() {
+   var value = $(this).val().toLowerCase();
+   $("#mycard > div").filter(function() {
+     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+   });
+ });
+</script>
+<!-- Initialize Quill editor -->
+<script>
+    var toolbarOptions = [
+      ['bold', 'italic', 'underline'],        // toggled buttons
+      ['blockquote'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],  // custom dropdown
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'align': [] }],
+      ['clean']                                         // remove formatting button
+    ];
+    var quill = new Quill('#editor', {
+      modules: {
+        toolbar: toolbarOptions
+      },
+      theme: 'snow' });
+</script>
+<script>
+    var limit = 375;
+    quill.on('text-change', function (delta, old, source) {
+      if (quill.getLength() >= limit) {
+        quill.deleteText(limit, quill.getLength());
+      }
+    });
+</script>
+
+<script>
+    $('#btn_keymessage').on('click', () => {
+
+        // Get HTML content
+        var html = quill.root.innerHTML;
+
+        // Copy HTML content in hidden form
+        $('#hiddenInput').val( html )
+
+        e.preventDefault();
+
+        // Post form
+        myForm.submit();
+    })
+</script>
+<!-- End Example Code -->
+</body>
+</html>
